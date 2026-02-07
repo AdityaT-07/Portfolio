@@ -14,7 +14,10 @@ const Contact = () => {
   const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -23,14 +26,14 @@ const Contact = () => {
 
     emailjs
       .send(
-        process.env.SERVICE_ID,
-        process.env.TEMPLATE_ID,
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
         },
-        process.env.PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(() => {
         setSuccess('Message sent successfully 🚀');
@@ -39,6 +42,7 @@ const Contact = () => {
       })
       .catch(() => {
         setSuccess('Something went wrong ❌');
+        
         setLoading(false);
       });
   };
