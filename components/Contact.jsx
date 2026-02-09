@@ -26,22 +26,26 @@ const Contact = () => {
 
     emailjs
       .send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_SERVICE_ID,
+        import.meta.env.VITE_TEMPLATE_ID,
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
         },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_PUBLIC_KEY
       )
       .then(() => {
         setSuccess('Message sent successfully 🚀');
         setFormData({ name: '', email: '', message: '' });
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setSuccess('Something went wrong ❌');
+        console.log(err);
+        
+
+        
         
         setLoading(false);
       });
